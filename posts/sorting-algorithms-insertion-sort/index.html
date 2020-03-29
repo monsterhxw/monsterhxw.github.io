@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="Huangxuewei"/>
+
+  
+  <meta name="description" content=" Sorting Algorithms : Insertion Sort
+ 插入排序的定义（Insertion Sort Definition） Wikipedia 上对插入排序（Insertion Sort）描述：
+是一种简单直观的排序算法，可以一次构建出项最终排序数组（或列表），是一种原地（in-place）的比较排序。
+ 创建已排序的子列表，对于未排序元素，在已排序子列表中从右向左扫描，找到相应位置并插入
+ 在从右向左扫描过程中，需要反复把已排序元素逐步向右挪位，为最新元素提供插入空间
+ 以此类推，直到所有元素均排序完毕。
+ "/>
+  
+
+  
+  
+  <meta name="keywords" content="Code, Great Perseverance"/>
+  
+
+  
+  <link rel="canonical" href="https://monsterhxw.github.io/posts/sorting-algorithms-insertion-sort/"/>
+
+  
+
+  <title>排序算法: 插入排序（Insertion Sort） &middot; Vivi&#39;s Blog</title>
+
+  <link rel="shortcut icon" href="https://monsterhxw.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://monsterhxw.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://monsterhxw.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://monsterhxw.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://monsterhxw.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">首页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-link-unlink"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://monsterhxw.github.io">
+          <span>Vivi&#39;s Blog</span>
+          <img src="https://monsterhxw.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">Vivi&#39;s Blog</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://github.com/monsterhxw" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        
+        <a href="https://twitter.com/Huangxuewei1" title="twitter" target="_blank"><i class="remixicon-twitter-fill"></i></a>
+        
+        
+        <a href="https://monsterhxw.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/sorting-algorithms-insertion-sort/'>排序算法: 插入排序（Insertion Sort）</a></h2>
+          <span class="date">2019.07.29</span>
+        </div>
+        <div class="post_content markdown"><blockquote>
+<p>Sorting Algorithms : Insertion Sort</p>
+</blockquote>
+
+<h3 id="插入排序的定义-insertion-sort-definition">插入排序的定义（Insertion Sort Definition）</h3>
+
+<p><a href="https://zh.wikipedia.org/wiki/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F">Wikipedia 上对插入排序（Insertion Sort）描述</a>：</p>
+
+<p>是一种简单直观的排序算法，可以一次构建出项最终排序数组（或列表），是一种原地（<a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a>）的比较排序。</p>
+
+<ul>
+<li><p>创建已排序的子列表，对于未排序元素，在已排序子列表中从右向左扫描，找到相应位置并插入</p></li>
+
+<li><p>在从右向左扫描过程中，需要反复把已排序元素逐步向右挪位，为最新元素提供插入空间</p></li>
+
+<li><p>以此类推，直到所有元素均排序完毕。</p></li>
+</ul>
+
+<p>与大多数高级算法（如 <a href="https://en.wikipedia.org/wiki/Quicksort">快速排序(Quick Sort)</a>、<a href="https://en.wikipedia.org/wiki/Heapsort">堆排序(Heap Sort)</a> 或 <a href="https://en.wikipedia.org/wiki/Merge_sort">归并排序(Merge Sort)</a>）相比，它在大量数据的列表上的效率要低得多。</p>
+
+<p>比大多数其他简单的二次（即 <code>O(n^2)</code>）算法（如 <a href="https://en.wikipedia.org/wiki/Selection_sort">选择排序(Selection Sort)</a> 或 <a href="https://en.wikipedia.org/wiki/Bubble_sort">冒泡排序(Bubble Sort)</a>）效率更高。</p>
+
+<h3 id="算法示例-example">算法示例（Example）</h3>
+
+<ol>
+<li><p>以列表中的第一个元素作为已排序子列表，其余元素作为未排序子列表。</p>
+
+<p>取第二个元素赋值给 <code>key</code> ，然后比较 <code>key</code> 与第一个元素，如果第一个元素大于 <code>key</code>，则将 <code>key</code> 插入到第一个元素前面。</p>
+
+<p><img src="/insertion-sort/insertion-sort-work-1.png" alt="insertion-sort-work-1" /></p></li>
+
+<li><p>取第三个元素并将其与左侧的元素进行比较。将它放在比它小的元素后面。如果没有小于它的元素，则将其放在数组的开头。</p>
+
+<p><img src="/insertion-sort/insertion-sort-work-2.png" alt="insertion-sort-work-2" /></p></li>
+
+<li><p>以此类推，将每个未排序的元素放在正确的位置。</p>
+
+<p><img src="/insertion-sort/insertion-sort-work-3.png" alt="insertion-sort-work-3" /></p>
+
+<p><img src="/insertion-sort/insertion-sort-work-4.png" alt="insertion-sort-work-4" /></p></li>
+</ol>
+
+<h3 id="算法复杂度-algorithm-complexity">算法复杂度（Algorithm Complexity）</h3>
+
+<p>时间复杂度（Time Complexities）：</p>
+
+<ul>
+<li><p>最坏情况的复杂度：<code>O(n^2)</code></p>
+
+<p>假设，数组按升序排序，但目的是为了对列表进行降序排序。在这种情况下，那么最坏的情况就会发生。</p>
+
+<p>必须将每个元素与其他元素进行比较，因此，对于每次第 <code>n</code> 个元素，进行 <code>(n - 1)</code> 次比较，所以总的比较数 为 <code>n * (n - 1)</code>，约等于 <code>n^2</code></p></li>
+
+<li><p>最好情况的复杂度：<code>O(n)</code></p>
+
+<p>当列表已经是有序时，外循环运行 <code>n</code> 次，而内循环根本不运行。所以，只有 <code>n</code> 个比较。因此，复杂度是线性的。</p></li>
+
+<li><p>平均情况的复杂度：<code>O(n^2)</code></p>
+
+<p>当数组的元素是混乱的顺序（既不是升序也不是降序）时，就会发生这种情况。</p></li>
+</ul>
+
+<p>空间复杂度（Space Complexity）：</p>
+
+<ul>
+<li>因为需要一个临时变量 key ，因此空间复杂度为 <code>O(1)</code></li>
+</ul>
+
+<p>稳定性（Stability）：</p>
+
+<ul>
+<li><p>稳定性概念</p>
+
+<pre><code>如果 a 原本在 b 前面，而 a = b，排序之后 a 仍然在 b 的前面，那么说明该排序是稳定的，反之说明该排序是不稳定的。
+</code></pre></li>
+
+<li><p>插入排序是稳定的（Stable）</p></li>
+</ul>
+
+<h3 id="插入排序的应用-insertion-sort-applications">插入排序的应用（Insertion Sort Applications）</h3>
+
+<p>插入排序使用于以下的情况：</p>
+
+<ul>
+<li><p>需要排序的列表中的元素数量很少</p></li>
+
+<li><p>需要排序的列表中，只有少数元素需要排序</p></li>
+</ul>
+
+<h3 id="代码实现-code-and-implementation">代码实现（Code and Implementation）</h3>
+
+<p>C 语言实现</p>
+
+<hr />
+
+<pre><code class="language-c">// C program for implementation of insertion sort 
+
+#include &lt;stdio.h&gt;
+
+// n 为第几个元素
+void insert(int arr[], int n) {
+    int key = arr[n];
+    int i = n;
+    while (i &gt; 0 &amp;&amp; arr[i - 1] &gt; key) {
+        arr[i] = arr[i - 1];
+        i--;
+    }
+    arr[i] = key;
+}
+
+void insertionSort(int arr[], int n) {
+    int i;
+    // 认为第一个元素是在已排序子列表中，从第二个元素开始，将元素插入到已排序子列表中
+    for (i = 1; i &lt; n; i++) {
+        insert(arr, i);
+    }
+}
+
+// A utility function to print an array of size n
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i &lt; n; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
+    printf(&quot;\n&quot;);
+}
+
+// Driver program to test insertion sort
+int main() {
+    int arr[] = {7, 6, 5, 0};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printf(&quot;Array before sorting: \n&quot;);
+    printArray(arr, n);
+    insertionSort(arr, n);
+    printf(&quot;\nArray after sorting: \n&quot;);
+    printArray(arr, n);
+    return 0;
+}
+</code></pre>
+
+<hr />
+
+<h3 id="参考-references">参考（References）</h3>
+
+<ol>
+<li><p><a href="https://www.programiz.com/dsa/insertion-sort">Programiz - Insertion Sort Algorithm : https://www.programiz.com/dsa/insertion-sort</a></p></li>
+
+<li><p><a href="https://www.bilibili.com/video/av9830014">B 站 UP 主 - 正月点灯笼 - [算法教程] 几种经典排序的实现 : https://www.bilibili.com/video/av9830014 </a></p></li>
+
+<li><p><a href="https://en.wikipedia.org/wiki/Insertion_sort">Wikipedia - Insertion sort : https://en.wikipedia.org/wiki/Insertion_sort</a></p></li>
+</ol></div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://monsterhxw.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">排序算法</a>
+                
+                <a href="https://monsterhxw.github.io/tags/sorting-algorithm/">Sorting Algorithm</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="powered_by">
+    <a href="https://monsterhxw.github.io/">Designed by MonsterVivi,</a>
+    <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+  </div>
+
+  <div class="footer_slogan">
+    <span>工欲善其事 必先利其器</span>
+  </div>
+</footer>
+
+
+
+<script src="https://monsterhxw.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://monsterhxw.github.io/js/zozo.js"></script>
+<script src="https://monsterhxw.github.io/js/highlight.pack.js"></script>
+<link  href="https://monsterhxw.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://monsterhxw.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>
